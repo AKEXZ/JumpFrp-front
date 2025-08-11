@@ -1,45 +1,64 @@
-# jumpfrp-panel-v3
+## JumpFrp 前端（Vue 3 + Vite）
 
-JumpFrp-Panel-v3 版本前端完全开源，为确保安全，我们的后端不开源。
+前端面板，默认通过环境变量 `VITE_API_BASE_URL` 调用后端 API。
 
-## Project setup
+## 环境要求
 
-```
+- Node.js >= 18
+- pnpm >= 10.11.0（项目内置 `packageManager: pnpm@10.11.0`）
+
+## 本地开发
+
+```bash
 pnpm install
+
+# 配置本地 API 地址
+echo "VITE_API_BASE_URL=http://localhost:3000" > .env.development
+
+# 如需启用登录密码加密（可选）
+# echo "VITE_AUTH_RSA_PUBLIC_KEY=-----BEGIN PUBLIC KEY-----\nMIIB...\n-----END PUBLIC KEY-----" >> .env.development
+
+pnpm dev  # 访问本地开发地址（以控制台输出为准）
 ```
 
-### Compiles and hot-reloads for development
+## 构建部署
 
-```
-pnpm dev
-```
-
-### Compiles and minifies for production
-
-```
+```bash
 pnpm build
+# 产物位于 dist/，可由 Nginx/静态托管平台部署
 ```
 
-## Develop
+### Vercel 部署（独立前端项目）
 
-### Code Style and Formatting
+在 Vercel 项目中设置环境变量：
+- `VITE_API_BASE_URL=https://api.your-domain.com`
+- `VITE_AUTH_RSA_PUBLIC_KEY=...`（可选，RSA 公钥，PEM/SPKI，支持单行 `\n`）
 
-This project uses [Prettier](https://prettier.io/) for code formatting with the following rules:
-
-- **Line width**: 120 characters
-- **Semicolons**: Always added at the end of statements
-- **Tab width**: 4 spaces
-- **Quotes**: Single quotes for strings
-- **Trailing commas**: Added where valid in ES5 (e.g., objects, arrays)
-
-You can use `esbenp.prettier-vscode` in VSCode
-
-#### Formatting Commands
-
+vercel.json（示例，已在项目内）：
+```json
+{
+  "version": 2,
+  "framework": "vite",
+  "buildCommand": "corepack enable && corepack prepare pnpm@10.11.0 --activate && pnpm install && pnpm build",
+  "outputDirectory": "dist",
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/index.html" }
+  ]
+}
 ```
-pnpm format
+
+## 环境变量说明
+
+- `VITE_API_BASE_URL`：后端 API 基础地址（例如 `https://api.jumpfrp.top`）
+- `VITE_AUTH_RSA_PUBLIC_KEY`：RSA 公钥（PEM，SPKI），若配置则前端在登录/注册时会额外发送 `password_enc`
+
+公钥单行示例：
+```
+-----BEGIN PUBLIC KEY-----\nMIIB...\n-----END PUBLIC KEY-----
 ```
 
-### Customize configuration
+## 代码风格
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- 使用 Prettier 进行格式化
+- 命令：`pnpm format`

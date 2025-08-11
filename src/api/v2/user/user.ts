@@ -1,5 +1,6 @@
 import axiosInstance from '../axios/axiosInstance';
 import { BaseResponse } from '../axios/axiosInstance';
+import { encryptPasswordRSA, getRsaPublicKeyFromEnv } from '../../../utils/crypto';
 
 // 登录
 interface LoginResponse extends BaseResponse {
@@ -36,9 +37,13 @@ interface LoginResponse extends BaseResponse {
  * @returns {Promise<LoginResponse>} 登录响应
  */
 export const login = async (username: string, password: string): Promise<LoginResponse> => {
-    return axiosInstance.get('/login', {
-        params: { username, password },
-    });
+    const pub = getRsaPublicKeyFromEnv();
+    if (pub) {
+        const password_enc = await encryptPasswordRSA(pub, password);
+        // 兼容后端当前仅校验 password 的情况，同时附带 password_enc，便于后端后续切换
+        return axiosInstance.get('/login', { params: { username, password, password_enc } });
+    }
+    return axiosInstance.get('/login', { params: { username, password } });
 };
 
 /**
@@ -85,9 +90,13 @@ export const register = async (
     qq: string,
     code: string
 ): Promise<BaseResponse> => {
-    return axiosInstance.get('/register', {
-        params: { username, password, mail, qq, code },
-    });
+    const pub = getRsaPublicKeyFromEnv();
+    if (pub) {
+        const password_enc = await encryptPasswordRSA(pub, password);
+        // 兼容后端当前仅校验 password 的情况，同时附带 password_enc
+        return axiosInstance.get('/register', { params: { username, password, password_enc, mail, qq, code } });
+    }
+    return axiosInstance.get('/register', { params: { username, password, mail, qq, code } });
 };
 
 // 获取用户信息
