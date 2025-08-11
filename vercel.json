@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "name": "jumpfrp-front",
+  "framework": "vite",
+  "buildCommand": "corepack enable && corepack prepare pnpm@10.11.0 --activate && pnpm install && pnpm build",
+  "outputDirectory": "dist",
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/index.html" }
+  ]
+}
