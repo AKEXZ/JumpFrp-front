@@ -1,31 +1,8 @@
-import { h, Component } from 'vue';
+import { h, Component, computed } from 'vue';
 import { RouterLink } from 'vue-router';
 import { NIcon } from 'naive-ui';
 import { useUserStore } from '@/stores/user';
-import {
-    StatsChartOutline,
-    DocumentTextOutline,
-    GridOutline,
-    ListOutline,
-    HomeOutline,
-    PersonCircleOutline,
-    DocumentsOutline,
-    ExtensionPuzzleOutline,
-    InformationCircleOutline,
-    EllipsisHorizontalCircleOutline,
-    LinkOutline,
-    PrismOutline,
-    PricetagOutline,
-    PlanetOutline,
-    KeyOutline,
-    PieChartOutline,
-    BrowsersOutline,
-    GiftOutline,
-    PeopleOutline,
-    ConstructOutline,
-    ListCircleOutline,
-    ServerOutline,
-} from '@vicons/ionicons5';
+import { HomeOutline, PersonCircleOutline, DocumentsOutline, InformationCircleOutline, EllipsisHorizontalCircleOutline, ServerOutline, KeyOutline, ListOutline, StatsChartOutline } from '@vicons/ionicons5';
 
 const userStore = useUserStore();
 const userInfo = computed(() => userStore.userInfo);
@@ -67,99 +44,7 @@ export const computedMenuOptionsUser = computed(() => [
         key: '个人资料',
         icon: renderIcon(PersonCircleOutline),
     },
-    {
-        label: '隧道管理',
-        key: '隧道管理',
-        icon: renderIcon(ListOutline),
-        children: [
-            {
-                label: () =>
-                    h(
-                        RouterLink,
-                        {
-                            to: { name: '隧道列表' },
-                        },
-                        { default: () => '隧道列表' }
-                    ),
-                key: '隧道列表',
-                icon: renderIcon(GridOutline),
-            },
-            {
-                label: () =>
-                    h(
-                        RouterLink,
-                        {
-                            to: { name: '配置文件' },
-                        },
-                        { default: () => '配置文件' }
-                    ),
-                key: '配置文件',
-                icon: renderIcon(DocumentTextOutline),
-            },
-            {
-                label: () =>
-                    h(
-                        RouterLink,
-                        {
-                            to: { name: '节点状态' },
-                        },
-                        { default: () => '节点状态' }
-                    ),
-                key: '节点状态',
-                icon: renderIcon(StatsChartOutline),
-            },
-        ],
-    },
-    {
-        label: '扩展功能',
-        key: '扩展功能',
-        icon: renderIcon(ExtensionPuzzleOutline),
-        children: [
-            {
-                label: () =>
-                    h(
-                        RouterLink,
-                        {
-                            to: { name: '免费域名' },
-                        },
-                        { default: () => '免费域名' }
-                    ),
-                key: '免费域名',
-                icon: renderIcon(LinkOutline),
-            },
-        ],
-    },
-    {
-        label: '增值中心',
-        key: '增值中心',
-        icon: renderIcon(PrismOutline),
-        children: [
-            {
-                label: () =>
-                    h(
-                        RouterLink,
-                        {
-                            to: { name: '积分充值' },
-                        },
-                        { default: () => '积分充值' }
-                    ),
-                key: '积分充值',
-                icon: renderIcon(PlanetOutline),
-            },
-            {
-                label: () =>
-                    h(
-                        RouterLink,
-                        {
-                            to: { name: '积分商城' },
-                        },
-                        { default: () => '积分商城' }
-                    ),
-                key: '积分商城',
-                icon: renderIcon(PricetagOutline),
-            },
-        ],
-    },
+    // 移除隧道管理、扩展功能、增值中心
     {
         label: '其他信息',
         key: '其他信息',
@@ -196,134 +81,48 @@ export const computedMenuOptionsUser = computed(() => [
 ]);
 
 // 管理员菜单选项
-export const computedMenuOptionsAdmin = computed(() => [
+export const computedMenuOptionsAdmin = computed(() => []);
+// 管理功能菜单（仅管理员可见）
+export const computedAdminOps = computed(() => [
     {
-        type: 'divider',
-        props: {
-            style: { marginLeft: '32px' },
-        },
-    },
-    {
-        label: '管理面板',
-        key: '管理面板',
-        icon: renderIcon(BrowsersOutline),
+        label: '集中管理',
+        key: '集中管理',
+        icon: renderIcon(ServerOutline),
         children: [
             {
-                type: 'group',
-                label: '面板',
-                key: 'people',
-                children: [
-                    {
-                        label: () =>
-                            h(
-                                RouterLink,
-                                {
-                                    to: { name: '系统总览' },
-                                },
-                                { default: () => '系统总览' }
-                            ),
-                        key: '系统总览',
-                        icon: renderIcon(PieChartOutline),
-                    },
-                    {
-                        label: () =>
-                            h(
-                                RouterLink,
-                                {
-                                    to: { name: '面板管理' },
-                                },
-                                { default: () => '面板管理' }
-                            ),
-                        key: '面板管理',
-                        icon: renderIcon(ConstructOutline),
-                    },
-                ],
+                label: () => h(RouterLink, { to: { name: '节点运维' } }, { default: () => '节点运维' }),
+                key: '节点运维',
+                icon: renderIcon(ServerOutline),
             },
             {
-                type: 'group',
-                label: '映射',
-                key: 'people',
-                children: [
-                    {
-                        label: () =>
-                            h(
-                                RouterLink,
-                                {
-                                    to: { name: '节点管理' },
-                                },
-                                { default: () => '节点管理' }
-                            ),
-                        key: '节点管理',
-                        icon: renderIcon(ServerOutline),
-                    },
-                    {
-                        label: () =>
-                            h(
-                                RouterLink,
-                                {
-                                    to: { name: '用户管理' },
-                                },
-                                { default: () => '用户管理' }
-                            ),
-                        key: '用户管理',
-                        icon: renderIcon(PeopleOutline),
-                    },
-                    {
-                        label: () =>
-                            h(
-                                RouterLink,
-                                {
-                                    to: { name: '管理隧道' },
-                                },
-                                { default: () => '管理隧道' }
-                            ),
-                        key: '管理隧道',
-                        icon: renderIcon(ListCircleOutline),
-                    },
-                    {
-                        label: () =>
-                            h(
-                                RouterLink,
-                                {
-                                    to: { name: '兑换码管理' },
-                                },
-                                { default: () => '兑换码管理' }
-                            ),
-                        key: '兑换码管理',
-                        icon: renderIcon(GiftOutline),
-                    },
-                ],
+                label: () => h(RouterLink, { to: { name: '权限模板' } }, { default: () => '权限模板' }),
+                key: '权限模板',
+                icon: renderIcon(KeyOutline),
             },
             {
-                type: 'group',
-                label: '扩展',
-                key: 'people',
-                children: [
-                    {
-                        label: () =>
-                            h(
-                                RouterLink,
-                                {
-                                    to: { name: '免费域名管理' },
-                                },
-                                { default: () => '免费域名管理' }
-                            ),
-                        key: '免费域名管理',
-                        icon: renderIcon(LinkOutline),
-                    },
-                    {
-                        label: () =>
-                            h(
-                                RouterLink,
-                                {
-                                    to: { name: '免费SSL管理' },
-                                },
-                                { default: () => '免费SSL管理' }
-                            ),
-                        key: '免费SSL管理',
-                        icon: renderIcon(KeyOutline),
-                    },
-                ],
+                label: () => h(RouterLink, { to: { name: '隧道管理' } }, { default: () => '隧道管理' }),
+                key: '隧道管理',
+                icon: renderIcon(ListOutline),
+            },
+            {
+                label: () => h(RouterLink, { to: { name: '监控面板' } }, { default: () => '监控面板' }),
+                key: '监控面板',
+                icon: renderIcon(StatsChartOutline),
+            },
+            {
+                label: () => h(RouterLink, { to: { name: '系统设置' } }, { default: () => '系统设置' }),
+                key: '系统设置',
+                icon: renderIcon(KeyOutline),
+            },
+            {
+                label: () => h(RouterLink, { to: { name: '用户管理' } }, { default: () => '用户管理' }),
+                key: '用户管理',
+                icon: renderIcon(PersonCircleOutline),
+            },
+            {
+                label: () => h(RouterLink, { to: { name: '系统日志' } }, { default: () => '系统日志' }),
+                key: '系统日志',
+                icon: renderIcon(DocumentsOutline),
             },
         ],
     },
@@ -408,7 +207,7 @@ export const computedMenuOptions = computed(() => {
     const group = userInfo.value?.usergroup;
     const isAdmin = group === '管理员' || group === 'admin';
     if (isAdmin) {
-        return [...computedMenuOptionsUser.value, ...computedMenuOptionsAdmin.value];
+        return [...computedMenuOptionsUser.value, ...computedAdminOps.value];
     } else if (!userInfo.value) {
         return computedMenuOptionsGuest.value;
     } else {

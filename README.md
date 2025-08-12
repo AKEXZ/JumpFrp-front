@@ -53,6 +53,20 @@ vercel.json（示例，已在项目内）：
 - `VITE_API_BASE_URL`：后端 API 基础地址（例如 `https://api.jumpfrp.top`）
 - `VITE_AUTH_RSA_PUBLIC_KEY`：RSA 公钥（PEM，SPKI），若配置则前端在登录/注册时会额外发送 `password_enc`
 
+### 管理入口
+
+管理菜单包含：节点运维、权限模板、隧道管理、监控面板、系统设置、用户管理、系统日志（需管理员账号登录后可见）。
+
+对应主要后端接口：
+
+- 节点运维：`/node_admin/*`、`/node_agent/*`
+- 权限模板：`/perm/groups`、`/perm/apply_to_users`
+- 隧道管理：`/tunnels*`
+- 监控面板：`/monitor/*`
+- 系统设置：`/system/settings`
+- 用户管理：`/admin/users`、`/admin/users/batch`
+- 系统日志：`/system/logs`
+
 公钥单行示例：
 ```
 -----BEGIN PUBLIC KEY-----\nMIIB...\n-----END PUBLIC KEY-----

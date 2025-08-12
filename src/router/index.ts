@@ -32,129 +32,79 @@ const routes: Array<RouteRecordRaw> = [
             },
         ],
     },
+    // 移除隧道管理相关路由
+    // 移除扩展功能相关路由
+    // 移除增值中心相关路由
     {
         path: '/',
-        name: '隧道管理',
+        name: '集中管理',
         component: () => import('@/views/HomeView.vue'),
         children: [
             {
-                path: '/tunnel/list',
-                name: '隧道列表',
-                component: () => import('@/pages/Tunnel/ListPage.vue'),
-                meta: {
-                    title: '隧道列表 - JumpFrp',
-                    keywords: 'JumpFrp, 隧道管理, 隧道列表, 内网穿透, 端口映射, frp, 免费frp, 映射',
-                    description: '查看和管理您的JumpFrp所有映射隧道列表。',
-                    requiresAuth: true,
-                },
-            },
-            // 已移除软件下载路由
-            {
-                path: '/tunnel/config',
-                name: '配置文件',
-                component: () => import('@/pages/Tunnel/ConfigPage.vue'),
-                meta: {
-                    title: '配置文件 - JumpFrp',
-                    keywords: 'JumpFrp, 配置文件, 内网穿透, 端口映射, frp, 免费frp, 映射',
-                    description: '配置和管理您的JumpFrp映射配置文件。',
-                    requiresAuth: true,
-                },
+                path: '/admin/node-ops',
+                name: '节点运维',
+                component: () => import('@/pages/Admin/NodeOps.vue'),
+                meta: { title: '节点运维 - JumpFrp', requiresAuth: true },
             },
             {
-                path: '/tunnel/status',
-                name: '节点状态',
-                component: () => import('@/pages/Tunnel/StatusPage.vue'),
-                meta: {
-                    title: '节点状态 - JumpFrp',
-                    keywords: 'JumpFrp, 节点状态, 内网穿透, 端口映射, frp, 免费frp, 映射',
-                    description: '查看JumpFrp端口映射节点的实时负载状态。',
-                },
-            },
-        ],
-    },
-    {
-        path: '/',
-        name: '扩展功能',
-        component: () => import('@/views/HomeView.vue'),
-        children: [
-            {
-                path: '/expand/domain-name',
-                name: '免费域名',
-                component: () => import('@/pages/Expand/DomainName.vue'),
-                meta: {
-                    title: '免费域名 - JumpFrp',
-                    keywords: 'JumpFrp, 免费域名, 域名服务, 内网穿透, 端口映射, frp, 免费frp, 映射',
-                    description: '在JumpFrp获取和管理您的免费域名。',
-                    requiresAuth: true,
-                },
+                path: '/admin/perm-templates',
+                name: '权限模板',
+                component: () => import('@/pages/Admin/PermTemplates.vue'),
+                meta: { title: '权限模板 - JumpFrp', requiresAuth: true },
             },
             {
-                path: '/expand/free-ssl',
-                name: '免费SSL',
-                component: () => import('@/pages/Expand/FreeSSL.vue'),
-                meta: {
-                    title: '免费SSL - JumpFrp',
-                    keywords: 'JumpFrp, 免费SSL证书, SSL, 端口映射, frp, 免费frp, 映射',
-                    description: '您可以在JumpFrp免费申请SSL证书',
-                    requiresAuth: true,
-                },
+                path: '/admin/tunnels',
+                name: '隧道管理',
+                component: () => import('@/pages/Admin/TunnelManagement.vue'),
+                meta: { title: '隧道管理 - JumpFrp', requiresAuth: true },
             },
             {
-                path: '/expand/app-marketplace',
-                name: '应用市场',
-                component: () => import('@/pages/Expand/AppMarketplace.vue'),
+                path: '/admin/monitor',
+                name: '监控面板',
+                component: () => import('@/pages/Admin/MonitorDashboard.vue'),
+                meta: { title: '监控面板 - JumpFrp', requiresAuth: true },
+            },
+            {
+                path: '/admin/system-settings',
+                name: '系统设置',
+                component: () => import('@/pages/Admin/SystemSettings.vue'),
+                meta: { title: '系统设置 - JumpFrp', requiresAuth: true },
+            },
+            {
+                path: '/admin/users',
+                name: '用户管理',
+                component: () => import('@/pages/Admin/UsersAdmin.vue'),
+                meta: { title: '用户管理 - JumpFrp', requiresAuth: true },
+            },
+            {
+                path: '/admin/system-logs',
+                name: '系统日志',
+                component: () => import('@/pages/Admin/SystemLogs.vue'),
+                meta: { title: '系统日志 - JumpFrp', requiresAuth: true },
+            },
+            {
+                path: '/other/about', name: '关于面板', component: () => import('@/pages/Other/AboutPage.vue'),
+                meta: { title: '关于面板 - JumpFrp' },
+            },
+            {
+                path: '/tunnel/info',
+                name: '隧道详情',
+                component: () => import('@/views/TunnelInfo.vue'),
                 meta: {
-                    title: 'JumpFrp应用市场 - JumpFrp',
-                    keywords: 'JumpFrp, 应用市场, 第三方应用市场, JumpFrp应用市场, JumpFrp软件, frp, 免费frp, 映射',
+                    title: '隧道详情 - JumpFrp',
+                    keywords: 'JumpFrp, 隧道详情, 内网穿透, 端口映射, frp, 免费frp, 映射',
                     description:
-                        '这里包含了所有JumpFrp的官方、第三方应用，包含接入了JumpFrp的MC开服器、JumpFrp便携启动器等。',
-                    requiresAuth: true,
-                },
-            },
-        ],
-    },
-    {
-        path: '/',
-        name: '增值中心',
-        component: () => import('@/views/HomeView.vue'),
-        children: [
-            {
-                path: '/shop/top-up',
-                name: '积分充值',
-                component: () => import('@/pages/Shop/TopUp.vue'),
-                meta: {
-                    title: '积分充值 - JumpFrp',
-                    keywords: 'JumpFrp, 积分充值, 增值服务, 内网穿透, 端口映射, frp, 免费frp, 映射',
-                    description: '充值积分以获取更多增值服务。',
-                    requiresAuth: true,
+                        'JumpFrp用户隧道详情，这里会展示隧道连接数，今日流量，节点负载信息，隧道基础信息及关联程序等。',
                 },
             },
             {
-                path: '/shop/buy',
-                name: '积分商城',
-                component: () => import('@/pages/Shop/BuyPage.vue'),
+                path: '/node/info',
+                name: '节点详情',
+                component: () => import('@/views/NodeInfo.vue'),
                 meta: {
-                    title: '积分商城 - JumpFrp',
-                    keywords: 'JumpFrp, 积分商城, 增值服务, 内网穿透, 端口映射, frp, 免费frp, 映射',
-                    description: '在JumpFrp积分商城购买会员、带宽、隧道上限等各种增值服务。',
-                    requiresAuth: true,
-                },
-            },
-        ],
-    },
-    {
-        path: '/',
-        name: '其他信息',
-        component: () => import('@/views/HomeView.vue'),
-        children: [
-            {
-                path: '/other/about',
-                name: '关于面板',
-                component: () => import('@/pages/Other/AboutPage.vue'),
-                meta: {
-                    title: '关于面板 - JumpFrp',
-                    keywords: 'JumpFrp, 关于我们, 内网穿透, 端口映射, frp, 免费frp, 映射',
-                    description: '了解更多关于JumpFrp控制面板的信息。',
+                    title: '节点详情 - JumpFrp',
+                    keywords: 'JumpFrp, 节点详情, 内网穿透, 端口映射, frp, 免费frp, 映射',
+                    description: 'JumpFrp单个节点详情，这里会展示映射节点关联数据。',
                 },
             },
         ],
@@ -169,106 +119,7 @@ const routes: Array<RouteRecordRaw> = [
             description: '登录到JumpFrp控制台管理面板',
         },
     },
-    {
-        path: '/tunnel/info',
-        name: '隧道详情',
-        component: () => import('@/views/TunnelInfo.vue'),
-        meta: {
-            title: '隧道详情 - JumpFrp',
-            keywords: 'JumpFrp, 隧道详情, 内网穿透, 端口映射, frp, 免费frp, 映射',
-            description:
-                'JumpFrp用户隧道详情，这里会展示隧道连接数，今日流量，节点负载信息，隧道基础信息及关联程序等。',
-        },
-    },
-    {
-        path: '/node/info',
-        name: '节点详情',
-        component: () => import('@/views/NodeInfo.vue'),
-        meta: {
-            title: '节点详情 - JumpFrp',
-            keywords: 'JumpFrp, 节点详情, 内网穿透, 端口映射, frp, 免费frp, 映射',
-            description: 'JumpFrp单个节点详情，这里会展示映射节点关联数据。',
-        },
-    },
-    {
-        path: '/',
-        name: '管理面板',
-        component: () => import('@/views/HomeView.vue'),
-        children: [
-            {
-                path: '/admin/overall',
-                name: '系统总览',
-                component: () => import('@/pages/Admin/OverallPage.vue'),
-                meta: {
-                    title: '总览 - 管理员控制台 - JumpFrp',
-                    requiresAuth: true,
-                },
-            },
-            {
-                path: '/admin/panel',
-                name: '面板管理',
-                component: () => import('@/pages/Admin/PanelSettings.vue'),
-                meta: {
-                    title: '面板管理 - 管理员控制台 - JumpFrp',
-                    requiresAuth: true,
-                },
-            },
-            {
-                path: '/admin/node',
-                name: '节点管理',
-                component: () => import('@/pages/Admin/NodeManagement.vue'),
-                meta: {
-                    title: '节点管理 - 管理员控制台 - JumpFrp',
-                    requiresAuth: true,
-                },
-            },
-            {
-                path: '/admin/user',
-                name: '用户管理',
-                component: () => import('@/pages/Admin/UserManagement.vue'),
-                meta: {
-                    title: '用户管理 - 管理员控制台 - JumpFrp',
-                    requiresAuth: true,
-                },
-            },
-            {
-                path: '/admin/tunnel',
-                name: '管理隧道',
-                component: () => import('@/pages/Admin/TunnelManagement.vue'),
-                meta: {
-                    title: '隧道管理 - 管理员控制台 - JumpFrp',
-                    requiresAuth: true,
-                },
-            },
-            {
-                path: '/admin/gift-code',
-                name: '兑换码管理',
-                component: () => import('@/pages/Admin/ExchangeCode.vue'),
-                meta: {
-                    title: '兑换码管理 - 管理员控制台 - JumpFrp',
-                    requiresAuth: true,
-                },
-            },
-            {
-                path: '/admin/domain-name',
-                name: '免费域名管理',
-                component: () => import('@/pages/Admin/DomainNameManagement.vue'),
-                meta: {
-                    title: '免费域名管理 - 管理员控制台 - JumpFrp',
-                    requiresAuth: true,
-                },
-            },
-            {
-                path: '/admin/free-ssl',
-                name: '免费SSL管理',
-                component: () => import('@/pages/Admin/SSLManagement.vue'),
-                meta: {
-                    title: '兑换码管理 - 管理员控制台 - JumpFrp',
-                    requiresAuth: true,
-                },
-            },
-        ],
-    },
+    // 移除管理面板相关路由
     {
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
