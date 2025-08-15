@@ -44,6 +44,28 @@ export const computedMenuOptionsUser = computed(() => [
         key: '个人资料',
         icon: renderIcon(PersonCircleOutline),
     },
+    {
+        label: '隧道管理',
+        key: '隧道管理',
+        icon: renderIcon(ListOutline),
+        children: [
+            {
+                label: () => h(RouterLink, { to: { name: '隧道管理' } }, { default: () => '隧道列表' }),
+                key: '隧道列表',
+                icon: renderIcon(ListOutline),
+            },
+            {
+                label: () => h(RouterLink, { to: { name: '配置文件' } }, { default: () => '配置文件' }),
+                key: '配置文件',
+                icon: renderIcon(KeyOutline),
+            },
+            {
+                label: () => h(RouterLink, { to: { name: '隧道状态' } }, { default: () => '隧道状态' }),
+                key: '隧道状态',
+                icon: renderIcon(StatsChartOutline),
+            },
+        ],
+    },
     // 移除隧道管理、扩展功能、增值中心
     {
         label: '其他信息',
@@ -85,25 +107,16 @@ export const computedMenuOptionsAdmin = computed(() => []);
 // 管理功能菜单（仅管理员可见）
 export const computedAdminOps = computed(() => [
     {
-        label: '集中管理',
-        key: '集中管理',
+    label: '后台管理',
+    key: '后台管理',
         icon: renderIcon(ServerOutline),
         children: [
             {
-                label: () => h(RouterLink, { to: { name: '节点运维' } }, { default: () => '节点运维' }),
-                key: '节点运维',
+                label: () => h(RouterLink, { to: { name: '节点管理' } }, { default: () => '节点管理' }),
+                key: '节点管理',
                 icon: renderIcon(ServerOutline),
             },
-            {
-                label: () => h(RouterLink, { to: { name: '权限模板' } }, { default: () => '权限模板' }),
-                key: '权限模板',
-                icon: renderIcon(KeyOutline),
-            },
-            {
-                label: () => h(RouterLink, { to: { name: '隧道管理' } }, { default: () => '隧道管理' }),
-                key: '隧道管理',
-                icon: renderIcon(ListOutline),
-            },
+            
             {
                 label: () => h(RouterLink, { to: { name: '监控面板' } }, { default: () => '监控面板' }),
                 key: '监控面板',
@@ -211,6 +224,7 @@ export const computedMenuOptions = computed(() => {
     } else if (!userInfo.value) {
         return computedMenuOptionsGuest.value;
     } else {
+    // 普通用户不显示后台管理分组
         return computedMenuOptionsUser.value;
     }
 });

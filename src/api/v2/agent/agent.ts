@@ -5,8 +5,18 @@ export interface AgentStatusResponse extends BaseResponse {
   data: any;
 }
 
-export const getAgentStatus = async (node_id: number): Promise<AgentStatusResponse> => {
-  return axiosInstance.get('/node_agent/status', { params: { node_id } });
+export const getAgentStatus = async (params: {
+  host: string;
+  admin_port: number;
+  admin_user?: string;
+  admin_pass?: string;
+} | number): Promise<AgentStatusResponse> => {
+  if (typeof params === 'number') {
+    // 兼容老用法，按 node_id 查询
+    return axiosInstance.get('/node_agent/status', { params: { node_id: params } });
+  }
+  // 新用法，按 host/admin_port 查询
+  return axiosInstance.get('/node_agent/status', { params });
 };
 
 export const getAdminVersion = async (node_id: number): Promise<BaseResponse> => {

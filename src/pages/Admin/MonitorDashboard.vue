@@ -151,10 +151,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick } from 'vue';
-import { useMessage } from 'naive-ui';
-import { UserOutlined, ServerOutlined, ApiOutlined, CloudOutlined } from '@vicons/antd';
+ import { useMessage } from 'naive-ui';
+ import { PersonCircleOutline, ServerOutline, CubeOutline, CloudOutline } from '@vicons/ionicons5';
 import * as echarts from 'echarts';
 import axios from 'axios';
+import { useUserStore } from '@/stores/user';
 
 const message = useMessage();
 
@@ -228,7 +229,7 @@ async function loadDashboard() {
   loading.value = true;
   try {
     const base = (import.meta as any).env?.VITE_API_BASE_URL || '';
-    const token = localStorage.getItem('token');
+    const token = useUserStore().userInfo?.usertoken || '';
     const resp = await axios.get(`${base}/monitor/dashboard?token=${token}`);
     
     if (resp.data?.code === 200) {
@@ -247,7 +248,7 @@ async function testLatency() {
   latencyTesting.value = true;
   try {
     const base = (import.meta as any).env?.VITE_API_BASE_URL || '';
-    const token = localStorage.getItem('token');
+    const token = useUserStore().userInfo?.usertoken || '';
     const resp = await axios.get(`${base}/monitor/latency?token=${token}`);
     
     if (resp.data?.code === 200) {
@@ -319,7 +320,6 @@ function initCharts() {
   if (nodeChartRef.value) {
     nodeChart = echarts.init(nodeChartRef.value);
     nodeChart.setOption({
-      title: { text: '节点状态分布' },
       tooltip: { trigger: 'item' },
       legend: { orient: 'vertical', left: 'left' },
       series: [{
@@ -341,7 +341,6 @@ function initCharts() {
   if (tunnelChartRef.value) {
     tunnelChart = echarts.init(tunnelChartRef.value);
     tunnelChart.setOption({
-      title: { text: '隧道类型分布' },
       tooltip: { trigger: 'item' },
       legend: { orient: 'vertical', left: 'left' },
       series: [{

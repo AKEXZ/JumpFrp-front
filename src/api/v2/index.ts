@@ -2,6 +2,7 @@ import * as user from './user/user';
 import * as node from './node/node';
 import * as agent from './agent/agent';
 import * as panel from './panel/panel';
+import * as tunnel from './tunnel/tunnel';
 import { ApiError } from './axios/axiosInstance';
 
 export default {
@@ -9,5 +10,6 @@ export default {
     node,
     agent,
     panel,
+    tunnel,
     ApiError,
 };

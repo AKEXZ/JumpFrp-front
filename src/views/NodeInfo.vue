@@ -272,23 +272,7 @@
                             </n-descriptions>
                         </n-card>
                     </n-grid-item>
-                    <n-grid-item :span="2">
-                        <n-card>
-                            <n-skeleton
-                                v-if="loadingNodeMap"
-                                text
-                                style="width: 100%; margin-top: 16px"
-                                height="500px"
-                            />
-                            <MapComponent
-                                v-else
-                                style="margin-top: 16px"
-                                :width="'100%'"
-                                :height="'500px'"
-                                :markers="markers"
-                            />
-                        </n-card>
-                    </n-grid-item>
+                    
                     <n-grid-item>
                         <n-card style="height: 556px">
                             <div id="frp-chart" style="width: 100%; height: 400px"></div>

@@ -9,6 +9,41 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/HomeView.vue'),
         children: [
             {
+                path: '/tunnels',
+                name: '隧道管理',
+                component: () => import('@/pages/Admin/TunnelManagement.vue'),
+                meta: { title: '隧道管理 - JumpFrp', requiresAuth: true },
+            },
+            {
+                path: '/tunnel/list',
+                name: '隧道列表',
+                component: () => import('@/pages/Admin/TunnelManagement.vue'),
+                meta: { title: '隧道列表 - JumpFrp', requiresAuth: true },
+            },
+            {
+                path: '/tunnel/config',
+                name: '配置文件',
+                component: () => import('@/pages/Tunnel/ConfigPage.vue'),
+                meta: { title: '配置文件 - JumpFrp', requiresAuth: true },
+            },
+            {
+                path: '/tunnel/status',
+                name: '隧道状态',
+                component: () => import('@/pages/Tunnel/StatusPage.vue'),
+                meta: { title: '隧道状态 - JumpFrp', requiresAuth: true },
+            },
+            {
+                path: '/tunnel/info',
+                name: '隧道详情',
+                component: () => import('@/views/TunnelInfo.vue'),
+                meta: {
+                    title: '隧道详情 - JumpFrp',
+                    keywords: 'JumpFrp, 隧道详情, 内网穿透, 端口映射, frp, 免费frp, 映射',
+                    description:
+                        'JumpFrp用户隧道详情，这里会展示隧道连接数，今日流量，节点负载信息，隧道基础信息及关联程序等。',
+                },
+            },
+            {
                 path: '/home',
                 name: '首页',
                 component: () => import('@/pages/HomePage.vue'),
@@ -37,66 +72,46 @@ const routes: Array<RouteRecordRaw> = [
     // 移除增值中心相关路由
     {
         path: '/',
-        name: '集中管理',
+    name: '后台管理',
         component: () => import('@/views/HomeView.vue'),
         children: [
             {
                 path: '/admin/node-ops',
-                name: '节点运维',
+                name: '节点管理',
                 component: () => import('@/pages/Admin/NodeOps.vue'),
-                meta: { title: '节点运维 - JumpFrp', requiresAuth: true },
+                meta: { title: '节点管理 - JumpFrp', requiresAuth: true },
             },
-            {
-                path: '/admin/perm-templates',
-                name: '权限模板',
-                component: () => import('@/pages/Admin/PermTemplates.vue'),
-                meta: { title: '权限模板 - JumpFrp', requiresAuth: true },
-            },
-            {
-                path: '/admin/tunnels',
-                name: '隧道管理',
-                component: () => import('@/pages/Admin/TunnelManagement.vue'),
-                meta: { title: '隧道管理 - JumpFrp', requiresAuth: true },
-            },
+            // 已移除权限模板入口（后端接口仍保留，前端不再暴露）
+            
             {
                 path: '/admin/monitor',
                 name: '监控面板',
                 component: () => import('@/pages/Admin/MonitorDashboard.vue'),
-                meta: { title: '监控面板 - JumpFrp', requiresAuth: true },
+                meta: { title: '监控面板 - JumpFrp', requiresAuth: true, requiresAdmin: true },
             },
             {
                 path: '/admin/system-settings',
                 name: '系统设置',
                 component: () => import('@/pages/Admin/SystemSettings.vue'),
-                meta: { title: '系统设置 - JumpFrp', requiresAuth: true },
+                meta: { title: '系统设置 - JumpFrp', requiresAuth: true, requiresAdmin: true },
             },
             {
                 path: '/admin/users',
                 name: '用户管理',
                 component: () => import('@/pages/Admin/UsersAdmin.vue'),
-                meta: { title: '用户管理 - JumpFrp', requiresAuth: true },
+                meta: { title: '用户管理 - JumpFrp', requiresAuth: true, requiresAdmin: true },
             },
             {
                 path: '/admin/system-logs',
                 name: '系统日志',
                 component: () => import('@/pages/Admin/SystemLogs.vue'),
-                meta: { title: '系统日志 - JumpFrp', requiresAuth: true },
+                meta: { title: '系统日志 - JumpFrp', requiresAuth: true, requiresAdmin: true },
             },
             {
                 path: '/other/about', name: '关于面板', component: () => import('@/pages/Other/AboutPage.vue'),
                 meta: { title: '关于面板 - JumpFrp' },
             },
-            {
-                path: '/tunnel/info',
-                name: '隧道详情',
-                component: () => import('@/views/TunnelInfo.vue'),
-                meta: {
-                    title: '隧道详情 - JumpFrp',
-                    keywords: 'JumpFrp, 隧道详情, 内网穿透, 端口映射, frp, 免费frp, 映射',
-                    description:
-                        'JumpFrp用户隧道详情，这里会展示隧道连接数，今日流量，节点负载信息，隧道基础信息及关联程序等。',
-                },
-            },
+            
             {
                 path: '/node/info',
                 name: '节点详情',

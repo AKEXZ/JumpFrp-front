@@ -14,6 +14,9 @@ export default defineConfig({
         port: 5173, // 首选端口
         strictPort: false, // 若被占用则自动切换到下一个可用端口
         open: true, // 自动打开浏览器
+        allowedHosts: [
+            'go'  // 添加你想要允许的主机名
+    ],
     },
     plugins: [
         vue(),

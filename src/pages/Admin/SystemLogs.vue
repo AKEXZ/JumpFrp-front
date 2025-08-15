@@ -13,6 +13,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import axios from 'axios';
+import { useUserStore } from '@/stores/user';
 import { useMessage } from 'naive-ui';
 
 const message = useMessage();
@@ -44,7 +45,7 @@ async function load(){
   loading.value = true;
   try {
     const base = (import.meta as any).env?.VITE_API_BASE_URL || '';
-    const token = localStorage.getItem('token');
+    const token = useUserStore().userInfo?.usertoken || '';
     const params = new URLSearchParams();
     params.set('token', token||'');
     params.set('page', String(page.value));
